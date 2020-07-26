@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "652361819907",
+    "firebase_url": "https://electro-9c9cc.firebaseio.com",
+    "project_id": "electro-9c9cc",
+    "storage_bucket": "electro-9c9cc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:652361819907:android:711ba6008a526655de2b36",
+        "android_client_info": {
+          "package_name": "com.electro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "652361819907-vqn14mhuc1jtgoujjbpakhc1cle2cmqv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.electro",
+            "certificate_hash": "7a1272e0b2597a3258eb6f070f9f6688fa97d700"
+          }
+        },
+        {
+          "client_id": "652361819907-2i138uhjjidpuv7im9cdcrpn6qmasohc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDG_TVMgSksUjmOffiIBtNWaPvA3wobvWE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "652361819907-2i138uhjjidpuv7im9cdcrpn6qmasohc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
