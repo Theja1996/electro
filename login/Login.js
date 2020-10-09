@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Container,
   Header,
@@ -10,19 +10,40 @@ import {
   Button,
   Text,
   Row,
+  Left,
+  Icon,
+  Body,
+  Title,
+  Right,
 } from 'native-base';
 import {SafeAreaView, StyleSheet, ScrollView, StatusBar} from 'react-native';
 import auth from '@react-native-firebase/auth';
 
-const Login = (props) => {
+const Login = ({ navigation }) => {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
+  const [initializing, setInitializing] = useState(true);
+  const [user, setUser] = useState();
+
+  // Handle user state changes
+  function onAuthStateChanged(user) {
+    setUser(user);
+    if (initializing) {
+      setInitializing(false);
+    }
+  }
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
+  }, []);
 
   const handleLogin = () => {
     auth()
-      .createUserWithEmailAndPassword(userName, password)
+      .signInWithEmailAndPassword(userName, password)
       .then(() => {
         console.log('User account created & signed in!');
+        alert('success');
+        navigation.navigate('Home');
       })
       .catch((error) => {
         if (error.code === 'auth/email-already-in-use') {
@@ -38,16 +59,36 @@ const Login = (props) => {
   };
   return (
     <Container>
-      <Header />
+      <Header>
+        <Left>
+          <Button transparent>
+            <Icon name="arrow-back" />
+          </Button>
+        </Left>
+        <Body>
+          <Title>Login</Title>
+        </Body>
+        <Right>
+          <Button transparent>
+            <Icon name="search" />
+          </Button>
+          <Button transparent>
+            <Icon name="heart" />
+          </Button>
+          <Button transparent>
+            <Icon type="Fontisto" name="more-v" />
+          </Button>
+        </Right>
+      </Header>
       <Content>
         <Form>
-          <Item fixedLabel>
+          <Item stackedLabel>
             <Label>Username</Label>
             <Input onChangeText={(value) => setUserName(value)} />
           </Item>
-          <Item fixedLabel last>
+          <Item stackedLabel last>
             <Label>Password</Label>
-            <Input onChangeText={(value) => setPassword(value)} />
+            <Input secureTextEntry={true} onChangeText={(value) => setPassword(value)} />
           </Item>
           <Row style={{justifyContent: 'center'}}>
             <Button style={styles.loginButton} onPress={handleLogin}>
