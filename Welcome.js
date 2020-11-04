@@ -1,55 +1,88 @@
-import React, {useState, useEffect} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Container,
-  Header,
   Content,
-  Form,
-  Item,
-  Input,
-  Label,
   Button,
   Text,
   Row,
-  Left,
   Icon,
-  Body,
-  Title,
-  Right,
   Grid,
   Footer,
   FooterTab,
+  Badge,
 } from 'native-base';
-import {SafeAreaView, StyleSheet, ScrollView, StatusBar} from 'react-native';
-import auth from '@react-native-firebase/auth';
+import { StyleSheet } from 'react-native';
+import database from '@react-native-firebase/database';
 
-const Welcome = (props) => {
+const Welcome = () => {
+
+  const [usage, setUsage] = useState(0);
+  const [amount, setAmount] = useState(0);
+
+
+  useEffect(() => {
+    database()
+      .ref('/theja/november')
+      .once('value')
+      .then(snapshot => {
+        let amt=snapshot.val().amount
+        console.log("initial amount",amt)
+        setAmount(amt)
+      });
+    const onValueChange = database()
+      .ref('/theja/november')
+      .on('value', snapshot => {
+        let amt=snapshot.val().amount
+        console.log("new amount",amt)
+        setAmount(amt)
+      });
+
+
+    // Stop listening for updates when no longer required
+    return () =>
+      database().ref('/theja/november').off('child_changed', onValueChange);
+  }, []);
+
+
+
+  useEffect(() => {
+
+    database()
+      .ref("/data/theja/november")
+      .once('value')
+      .then(snapshot => {
+        let usg=snapshot.val().usage
+        console.log("initial usage",usg)
+        setUsage(usg)
+      });
+    const onValueChange = database()
+      .ref("/data/theja/november")
+      .on('value', snapshot => {
+        let usg=snapshot.val().usage
+        console.log("new usage",usg)
+        setUsage(usg)
+      });
+
+
+    // Stop listening for updates when no longer required
+    return () =>
+      database()
+        .ref("/data/theja/november")
+        .off('child_changed', onValueChange);
+  }, []);
   return (
     <Container>
-      <Header>
-        <Left>
-          <Button transparent>
-            <Icon name="arrow-back" />
-          </Button>
-        </Left>
-        <Body>
-          <Title>Login</Title>
-        </Body>
-        <Right>
-          <Button transparent>
-            <Icon name="search" />
-          </Button>
-          <Button transparent>
-            <Icon name="heart" />
-          </Button>
-          <Button transparent>
-            <Icon type="Fontisto" name="more-v" />
-          </Button>
-        </Right>
-      </Header>
       <Content>
         <Grid>
-          <Row>
-            <Text>Welcome to Electro</Text>
+          <Row style={{ justifyContent: 'center', marginTop: 300 }} >
+            <Badge style={{ height: 100, width: 200 }}>
+              <Text style={{ fontSize: 20 }}>{usage}</Text>
+            </Badge>
+          </Row>
+          <Row style={{ justifyContent: 'center', marginTop: 10 }} >
+            <Badge style={{ height: 100, width: 200 }}>
+              <Text style={{ fontSize: 20 }}>{amount + 'LKR'}</Text>
+            </Badge>
           </Row>
         </Grid>
       </Content>
@@ -77,10 +110,3 @@ const Welcome = (props) => {
   );
 };
 export default Welcome;
-
-const styles = StyleSheet.create({
-  loginButton: {
-    marginTop: 20,
-    width: 100,
-  },
-});

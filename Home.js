@@ -24,13 +24,9 @@ const Home = ({ navigation }) => {
   if (!user) {
     navigation.navigate('Login');
   } else {
-    navigation.navigate('Welcome');
+    navigation.navigate('Wellcome');
   }
-  return (<View>
-    <Text>
-      Home
-    </Text>
-  </View>)
+  return (null)
 
 };
 export default Home;

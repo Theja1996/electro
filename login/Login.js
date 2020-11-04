@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React, {useState, useEffect} from 'react';
 import {
   Container,
@@ -16,10 +17,10 @@ import {
   Title,
   Right,
 } from 'native-base';
-import {SafeAreaView, StyleSheet, ScrollView, StatusBar} from 'react-native';
+import {SafeAreaView, StyleSheet, ScrollView, StatusBar,Image} from 'react-native';
 import auth from '@react-native-firebase/auth';
 
-const Login = ({ navigation }) => {
+const Login = ({navigation}) => {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [initializing, setInitializing] = useState(true);
@@ -58,41 +59,24 @@ const Login = ({ navigation }) => {
       });
   };
   return (
-    <Container>
-      <Header>
-        <Left>
-          <Button transparent>
-            <Icon name="arrow-back" />
-          </Button>
-        </Left>
-        <Body>
-          <Title>Login</Title>
-        </Body>
-        <Right>
-          <Button transparent>
-            <Icon name="search" />
-          </Button>
-          <Button transparent>
-            <Icon name="heart" />
-          </Button>
-          <Button transparent>
-            <Icon type="Fontisto" name="more-v" />
-          </Button>
-        </Right>
-      </Header>
+    <Container style={styles.cont}>
+     <Image style={styles.img} source={require('./bulb.png')} />
       <Content>
-        <Form>
+        <Form style={styles.form}>
           <Item stackedLabel>
             <Label>Username</Label>
             <Input onChangeText={(value) => setUserName(value)} />
           </Item>
           <Item stackedLabel last>
             <Label>Password</Label>
-            <Input secureTextEntry={true} onChangeText={(value) => setPassword(value)} />
+            <Input
+              secureTextEntry={true}
+              onChangeText={(value) => setPassword(value)}
+            />
           </Item>
           <Row style={{justifyContent: 'center'}}>
             <Button style={styles.loginButton} onPress={handleLogin}>
-              <Text>Login</Text>
+              <Text style={styles.log}> Login</Text>
             </Button>
           </Row>
         </Form>
@@ -106,5 +90,31 @@ const styles = StyleSheet.create({
   loginButton: {
     marginTop: 20,
     width: 100,
+   borderRadius:10,
+   shadowRadius:20,
+ backgroundColor:'#93d8dd',
+
+   
   },
+  form: {
+   marginTop:70,
+    marginBottom:10,
+    
+  },
+  log:{
+marginLeft:10,
+textAlign:'center',
+color:'black',
+  },
+  img:{
+height:'50%',
+width:'100%',
+borderBottomRightRadius:100,
+//borderTopLeftRadius:100,
+
+  },
+ cont:{
+  flex: 1,
+      },
+
 });

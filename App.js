@@ -20,9 +20,36 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Wellcome" component={Welcome} />
+        <Stack.Screen name="Home" component={Home}  options={{
+          
+
+          headerStyle: {
+            backgroundColor: '#64bac2',
+  
+    
+          },
+          headerTintColor: '#fff',
+        }} />
+        <Stack.Screen name="Login" component={Login} options={{
+          
+
+            headerStyle: {
+              backgroundColor: '#64bac2',
+    
+      
+            },
+            headerTintColor: '#fff',
+          }}/>
+        <Stack.Screen name="Wellcome" component={Welcome}  options={{
+          
+
+          headerStyle: {
+            backgroundColor: '#64bac2',
+  
+    
+          },
+          headerTintColor: '#fff',
+        }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
